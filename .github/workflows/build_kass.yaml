@@ -15,7 +15,7 @@ env:
   KASS_TAG: v3.7.5
 #  locust_mc_BUILD_WITH_KASSIOPEIA: ON
 #  locust_mc_ENABLE_EXECUTABLES: ON
-  narg: 2
+  NARG: 2
 #  locust_mc_ENABLE_TESTING: ON
 #  locust_mc_BUILD_TYPE: Debug
 #  locust_mc_TAG: test
@@ -61,7 +61,7 @@ jobs:
             latest=auto
             suffix=${{ matrix.tag-suffix }},onlatest=true
           tags: |
-            type=raw,value=${{ needs.check-kass-version.outputs.kass-ver }}
+            type=raw,value=${{ env.KASS_TAG }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
