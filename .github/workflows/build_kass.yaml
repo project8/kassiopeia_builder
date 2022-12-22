@@ -12,7 +12,6 @@ env:
   LUNA_BASE_VER: v1.3.0
   KASS_REPO: project8/kassiopeia
   KASS_TAG: v3.7.5
-  KASS_SUBDIR: kassiopeia
 #  locust_mc_BUILD_WITH_KASSIOPEIA: ON
 #  locust_mc_ENABLE_EXECUTABLES: ON
   NARG: 2
@@ -54,7 +53,7 @@ jobs:
           ref: ${{ env.KASS_TAG }}
           submodules: recursive
           fetch-depth: 0
-          path: ${{ env.KASS_SUBDIR }}
+          path: kassiopeia
 
       - name: Docker meta
         id: docker_meta
@@ -94,7 +93,7 @@ jobs:
         id: build-kass
         uses: docker/build-push-action@v3
         with:
-          context: ${{ env.KASS_SUBDIR }}
+          context: .
           file: Dockerfile.kass
           push: true
           load: false
