@@ -15,7 +15,7 @@ ENV CXX=${CXX_VAL}
 
 SHELL ["/bin/bash", "-c"]
 
-COPY kassiopeia /tmp_source/kassiopeia
+COPY . /tmp_source/kassiopeia
 
 # repeat the cmake command to get the change of install prefix to set correctly (a package_builder known issue)
 RUN source $COMMON_BUILD_PREFIX/setup.sh &&\
