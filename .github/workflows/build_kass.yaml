@@ -13,6 +13,7 @@ env:
   BUILD_IMAGE: locust_mc/test
   KASS_REPO: project8/kassiopeia
   KASS_TAG: v3.7.5
+  KASS_SUBDIR: kassiopeia
 #  locust_mc_BUILD_WITH_KASSIOPEIA: ON
 #  locust_mc_ENABLE_EXECUTABLES: ON
   NARG: 2
@@ -44,13 +45,17 @@ jobs:
 
     steps:
     
-      - name: Check out the repo
+      - name: Checkout builder repo
+        uses: actions/checkout@v3
+
+      - name: Check out Kassiopeia
         uses: actions/checkout@v3
         with:
           repository: ${{ env.KASS_REPO }}
           ref: ${{ env.KASS_TAG }}
           submodules: recursive
           fetch-depth: 0
+          path: ${{ env.KASS_SUBDIR }}
 
       - name: Docker meta
         id: docker_meta
@@ -90,7 +95,7 @@ jobs:
         id: build-kass
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./${{ env.KASS_SUBDIR }}
           file: Dockerfile.test
           push: true
           load: false
