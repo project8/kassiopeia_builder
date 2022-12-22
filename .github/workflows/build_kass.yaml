@@ -12,7 +12,7 @@ env:
   LUNA_BASE_VER: v1.3.0
   BUILD_IMAGE: locust_mc/test
   KASS_REPO: project8/kassiopeia
-  KASS_TAG: v3.7.7
+  KASS_TAG: v3.7.5
 #  locust_mc_BUILD_WITH_KASSIOPEIA: ON
 #  locust_mc_ENABLE_EXECUTABLES: ON
   narg: 2
