@@ -10,7 +10,6 @@ on:
 env:
   REGISTRY: ghcr.io
   LUNA_BASE_VER: v1.3.0
-  BUILD_IMAGE: locust_mc/test
   KASS_REPO: project8/kassiopeia
   KASS_TAG: v3.7.5
   KASS_SUBDIR: kassiopeia
@@ -96,7 +95,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./${{ env.KASS_SUBDIR }}
-          file: Dockerfile.test
+          file: Dockerfile.kass
           push: true
           load: false
           build-args: |
