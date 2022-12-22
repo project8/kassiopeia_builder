@@ -11,7 +11,7 @@ env:
   REGISTRY: ghcr.io
   LUNA_BASE_VER: v1.3.0
   KASS_REPO: project8/kassiopeia
-  KASS_TAG: v3.7.5
+  KASS_TAG: v3.7.7
 #  locust_mc_BUILD_WITH_KASSIOPEIA: ON
 #  locust_mc_ENABLE_EXECUTABLES: ON
   NARG: 2
