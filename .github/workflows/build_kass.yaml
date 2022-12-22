@@ -56,7 +56,7 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}//${{ github.repository }}
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
           flavor: |
             latest=auto
             suffix=${{ matrix.tag-suffix }},onlatest=true
