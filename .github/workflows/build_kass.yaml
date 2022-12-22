@@ -94,7 +94,7 @@ jobs:
         id: build-kass
         uses: docker/build-push-action@v3
         with:
-          context: ./${{ env.KASS_SUBDIR }}
+          context: ${{ env.KASS_SUBDIR }}
           file: Dockerfile.kass
           push: true
           load: false
