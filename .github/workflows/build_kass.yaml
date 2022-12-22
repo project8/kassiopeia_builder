@@ -50,6 +50,7 @@ jobs:
           repository: ${{ env.KASS_REPO }}
           ref: ${{ env.KASS_TAG }}
           submodules: recursive
+          fetch-depth: 0
 
       - name: Docker meta
         id: docker_meta
