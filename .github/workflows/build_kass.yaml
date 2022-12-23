@@ -1,10 +1,10 @@
-name: Build and Test Locust
+name: Build Kassiopeia
 
 on:
   pull_request:
-#  push:
-#    branches: [main, develop]
-#    tags: ['*']
+  push:
+    branches: [main, develop]
+    tags: ['*']
   workflow_dispatch:
 
 env:
@@ -13,12 +13,7 @@ env:
   BASE_IMG_TAG: v1.3.0
   KASS_REPO: project8/kassiopeia
   KASS_TAG: v3.7.7
-#  locust_mc_BUILD_WITH_KASSIOPEIA: ON
-#  locust_mc_ENABLE_EXECUTABLES: ON
   NARG: 2
-#  locust_mc_ENABLE_TESTING: ON
-#  locust_mc_BUILD_TYPE: Debug
-#  locust_mc_TAG: test
 
 jobs:
 
@@ -68,11 +63,11 @@ jobs:
             type=raw,value=${{ env.KASS_TAG }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
         
       - name: Set up Docker Buildx
         id: setup_buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
         with:
           buildkitd-flags: --debug
 
@@ -82,13 +77,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: print things
-        run: |
-          echo "docker_meta.outputs.tags: ${{ steps.docker_meta.outputs.tags }}"
-          echo "base image: ${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}:${{ env.IMG_BASE_TAG }}"
-          echo "build-type: ${{ matrix.build-type }}"
-          echo "narg: ${{ env.NARG }}"
 
       - name: Build Kassiopeia
         id: build-kass
@@ -111,7 +99,7 @@ jobs:
 
 
 # For debugging
-      - name: Setup tmate session
-        if: ${{ ! success() }}
-        uses: mxschmitt/action-tmate@v3
+#      - name: Setup tmate session
+#        if: ${{ ! success() }}
+#        uses: mxschmitt/action-tmate@v3
 
