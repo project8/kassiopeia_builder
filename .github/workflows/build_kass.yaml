@@ -9,7 +9,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  LUNA_BASE_VER: v1.3.0
+  IMG_BASE_REPO: project8/luna_base
+  IMG_BASE_TAG: v1.3.0
   KASS_REPO: project8/kassiopeia
   KASS_TAG: v3.7.7
 #  locust_mc_BUILD_WITH_KASSIOPEIA: ON
@@ -85,7 +86,7 @@ jobs:
       - name: print things
         run: |
           echo "docker_meta.outputs.tags: ${{ steps.docker_meta.outputs.tags }}"
-          echo "luna base version: ${{ env.LUNA_BASE_VER }}"
+          echo "base image: ${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}:${{ env.IMG_BASE_TAG }}"
           echo "build-type: ${{ matrix.build-type }}"
           echo "narg: ${{ env.NARG }}"
 
@@ -94,12 +95,14 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile.kass
+          file: Dockerfile
           push: true
           load: false
           build-args: |
-            img_repo=ghcr.io/project8/luna_base
-            img_tag=${{ env.LUNA_BASE_VER }}-dev
+            img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
+            img_tag=${{ env.IMG_BASE_TAG }}-dev
+            final_img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
+            final_img_tag=${{ env.IMG_BASE_TAG }}${{ matrix.tag-suffix }}
             build_type=${{ matrix.build-type }}
             narg=${{ env.NARG }}
           tags: ${{ steps.docker_meta.outputs.tags }}
