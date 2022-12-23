@@ -15,7 +15,7 @@ ENV KASS_BUILD_TYPE=$build_type
 
 ARG kass_tag=beta
 ENV KASS_TAG=${kass_tag}
-ENV KASS_BUILD_PREFIX=/usr/local/p8/kassioepeia/${KASS_TAG}
+ENV KASS_BUILD_PREFIX=/usr/local/p8/kassiopeia/${KASS_TAG}
 
 ARG CC_VAL=gcc
 ENV CC=${CC_VAL}
