@@ -103,6 +103,7 @@ jobs:
             img_tag=${{ env.BASE_IMG_TAG }}-dev
             final_img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
             final_img_tag=${{ env.BASE_IMG_TAG }}${{ matrix.tag-suffix }}
+            kass_tag=${{ env.KASS_TAG }}
             build_type=${{ matrix.build-type }}
             narg=${{ env.NARG }}
           tags: ${{ steps.docker_meta.outputs.tags }}
