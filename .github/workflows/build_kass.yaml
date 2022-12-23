@@ -9,8 +9,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMG_BASE_REPO: project8/luna_base
-  IMG_BASE_TAG: v1.3.0
+  BASE_IMG_REPO: project8/luna_base
+  BASE_IMG_TAG: v1.3.0
   KASS_REPO: project8/kassiopeia
   KASS_TAG: v3.7.7
 #  locust_mc_BUILD_WITH_KASSIOPEIA: ON
@@ -100,9 +100,9 @@ jobs:
           load: false
           build-args: |
             img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
-            img_tag=${{ env.IMG_BASE_TAG }}-dev
+            img_tag=${{ env.BASE_IMG_TAG }}-dev
             final_img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
-            final_img_tag=${{ env.IMG_BASE_TAG }}${{ matrix.tag-suffix }}
+            final_img_tag=${{ env.BASE_IMG_TAG }}${{ matrix.tag-suffix }}
             build_type=${{ matrix.build-type }}
             narg=${{ env.NARG }}
           tags: ${{ steps.docker_meta.outputs.tags }}
