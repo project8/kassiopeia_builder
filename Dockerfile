@@ -16,9 +16,6 @@ ARG nproc=4
 # this variable is redefined in the final image
 ENV KASS_PREFIX=${P8_ROOT}/${kass_subdir}/${kass_tag}
 
-# For preserving this value for later in the build; do not use to set the prefix
-#ARG _kass_build_prefix=${KASS_BUILD_PREFIX}
-
 RUN mkdir -p $KASS_PREFIX &&\
     chmod -R 777 $KASS_PREFIX/.. &&\
     cd $KASS_PREFIX &&\
@@ -52,10 +49,4 @@ RUN source $KASS_PREFIX/setup.sh &&\
 ########################
 FROM ${final_img_repo}:${final_img_tag}
 
-ARG kass_tag
-ARG kass_subdir
-
-ENV KASS_TAG=${kass_tag}
-ENV KASS_PREFIX=${P8_ROOT}/${kass_subdir}/${kass_tag}
-
-COPY --from=build $_kass_build_prefix $_kass_build_prefix
+COPY --from=build $P8_ROOT $P8_ROOT
