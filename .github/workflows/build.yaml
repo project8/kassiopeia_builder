@@ -84,8 +84,8 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          push: true
-          #push: ${{ github.event_name == 'push' && ( contains(github.ref, 'refs/tags/') || github.ref == 'refs/heads/develop' ) }}
+          #push: true
+          push: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/') }}
           load: false
           build-args: |
             build_img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
