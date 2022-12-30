@@ -10,10 +10,8 @@ FROM ${build_img_repo}:${build_img_tag} AS build
 ARG build_type=Release
 ARG kass_tag=beta
 ARG kass_subdir=kassiopeia
-
 ARG nproc=4
 
-# this variable is redefined in the final image
 ENV KASS_PREFIX=${P8_ROOT}/${kass_subdir}/${kass_tag}
 
 RUN mkdir -p $KASS_PREFIX &&\
