@@ -3,14 +3,14 @@ name: Build Kassiopeia
 on:
   pull_request:
   push:
-    branches: [main, develop]
+    branches: [main, develop, feature/test-ubuntu-build]
     tags: ['*']
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
   BASE_IMG_REPO: project8/luna_base
-  BASE_IMG_TAG: v1.3.2
+  BASE_IMG_TAG: v1.3.4-alpha.0
   KASS_REPO: project8/kassiopeia
   KASS_TAG: v3.8.2
   NARG: 2
