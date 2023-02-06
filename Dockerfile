@@ -1,8 +1,8 @@
 ARG final_img_repo=ghcr.io/project8/luna_base
-ARG final_img_tag=v1.3.2
+ARG final_img_tag=v1.3.4-alpha.0
 
 ARG build_img_repo=ghcr.io/project8/luna_base
-ARG build_img_tag=v1.3.2-dev
+ARG build_img_tag=v1.3.4-alpha.0
 
 ########################
 FROM ${build_img_repo}:${build_img_tag} AS build
