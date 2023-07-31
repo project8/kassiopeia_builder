@@ -1,8 +1,8 @@
 ARG final_img_repo=ghcr.io/project8/luna_base
-ARG final_img_tag=v1.3.1
+ARG final_img_tag=v1.3.3
 
 ARG build_img_repo=ghcr.io/project8/luna_base
-ARG build_img_tag=v1.3.1-dev
+ARG build_img_tag=v1.3.3
 
 ########################
 FROM ${build_img_repo}:${build_img_tag} AS build
@@ -10,14 +10,9 @@ FROM ${build_img_repo}:${build_img_tag} AS build
 ARG build_type=Release
 ARG kass_tag=beta
 ARG kass_subdir=kassiopeia
-
 ARG nproc=4
 
-# this variable is redefined in the final image
 ENV KASS_PREFIX=${P8_ROOT}/${kass_subdir}/${kass_tag}
-
-# For preserving this value for later in the build; do not use to set the prefix
-#ARG _kass_build_prefix=${KASS_BUILD_PREFIX}
 
 RUN mkdir -p $KASS_PREFIX &&\
     chmod -R 777 $KASS_PREFIX/.. &&\
@@ -41,6 +36,7 @@ RUN source $KASS_PREFIX/setup.sh &&\
     cmake -D CMAKE_BUILD_TYPE=$build_type \
           -D CMAKE_INSTALL_PREFIX:STRING=${KASS_PREFIX} \ 
           -D CMAKE_INSTALL_LIBDIR:STRING=lib \
+          -D CMAKE_CXX_STANDARD=14 \
           -D BUILD_KASSIOPEIA:BOOL=TRUE \
           -D BUILD_KEMFIELD:BOOL=TRUE \
           -D BUILD_KGEOBAG:BOOL=TRUE \
@@ -52,10 +48,4 @@ RUN source $KASS_PREFIX/setup.sh &&\
 ########################
 FROM ${final_img_repo}:${final_img_tag}
 
-ARG kass_tag
-ARG kass_subdir
-
-ENV KASS_TAG=${kass_tag}
-ENV KASS_PREFIX=${P8_ROOT}/${kass_subdir}/${kass_tag}
-
-COPY --from=build $_kass_build_prefix $_kass_build_prefix
+COPY --from=build $P8_ROOT $P8_ROOT

@@ -84,11 +84,12 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          push: true
+          #push: true
+          push: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/') }}
           load: false
           build-args: |
-            img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
-            img_tag=${{ env.BASE_IMG_TAG }}-dev
+            build_img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
+            build_img_tag=${{ env.BASE_IMG_TAG }}-dev
             final_img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
             final_img_tag=${{ env.BASE_IMG_TAG }}${{ matrix.tag-suffix }}
             kass_tag=${{ env.KASS_TAG }}
@@ -99,7 +100,7 @@ jobs:
 
 
 # For debugging
-#      - name: Setup tmate session
-#        if: ${{ ! success() }}
-#        uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        if: ${{ ! success() }}
+        uses: mxschmitt/action-tmate@v3
 
