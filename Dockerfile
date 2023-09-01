@@ -41,7 +41,6 @@ RUN source $KASS_PREFIX/setup.sh &&\
           -D BUILD_KEMFIELD:BOOL=TRUE \
           -D BUILD_KGEOBAG:BOOL=TRUE \
           -D BUILD_KOMMON:BOOL=TRUE \
-          -D KConst_REFERENCE_EPOCH:STRING=2006 \
           .. &&\
     make -j$nproc install &&\
     /bin/true
