@@ -3,7 +3,7 @@ name: Build Kassiopeia
 on:
   pull_request:
   push:
-    branches: [main, develop]
+    branches: [main, develop, feature/test_pls]
     tags: ['*']
   workflow_dispatch:
 
@@ -12,7 +12,7 @@ env:
   BASE_IMG_REPO: project8/luna_base
   BASE_IMG_TAG: v1.3.3
   KASS_REPO: project8/kassiopeia
-  KASS_TAG: v4.0.0
+  KASS_TAG: vDebug4.0.0
   NARG: 2
 
 jobs:
