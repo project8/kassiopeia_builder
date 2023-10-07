@@ -10,9 +10,9 @@ on:
 env:
   REGISTRY: ghcr.io
   BASE_IMG_REPO: project8/luna_base
-  BASE_IMG_TAG: v1.3.3
+  BASE_IMG_TAG: v1.3.4
   KASS_REPO: project8/kassiopeia
-  KASS_TAG: v3.8.2
+  KASS_TAG: v4.0.0
   NARG: 2
 
 jobs:
@@ -26,6 +26,7 @@ jobs:
         build: [Dev, Prod]
         fail-fast: [false]
         include:
+          - push: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/') }}
           - build: Dev
             tag-suffix: '-dev'
             build-type: Debug
@@ -40,10 +41,10 @@ jobs:
     steps:
     
       - name: Checkout builder repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check out Kassiopeia
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.KASS_REPO }}
           ref: ${{ env.KASS_TAG }}
@@ -53,7 +54,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository }}
           flavor: |
@@ -63,16 +64,16 @@ jobs:
             type=raw,value=${{ env.KASS_TAG }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         
       - name: Set up Docker Buildx
         id: setup_buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
         with:
           buildkitd-flags: --debug
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -80,12 +81,11 @@ jobs:
 
       - name: Build Kassiopeia
         id: build-kass
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile
-          #push: true
-          push: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/') }}
+          push: ${{ matrix.push }}
           load: false
           build-args: |
             build_img_repo=${{ env.REGISTRY }}/${{ env.BASE_IMG_REPO }}
@@ -96,7 +96,7 @@ jobs:
             build_type=${{ matrix.build-type }}
             narg=${{ env.NARG }}
           tags: ${{ steps.docker_meta.outputs.tags }}
-          platforms: linux/amd64
+          platforms: ${{ matrix.push && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
 
 
 # For debugging
