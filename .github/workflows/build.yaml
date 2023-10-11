@@ -96,7 +96,8 @@ jobs:
             build_type=${{ matrix.build-type }}
             narg=${{ env.NARG }}
           tags: ${{ steps.docker_meta.outputs.tags }}
-          platforms: ${{ matrix.push && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
+          platforms: linux/amd64
+#          platforms: ${{ matrix.push && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
 
 
 # For debugging
