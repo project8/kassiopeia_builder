@@ -3,7 +3,7 @@ name: Build Kassiopeia
 on:
   pull_request:
   push:
-    branches: [main, develop]
+    branches: [main, develop, feature/build_v4.0.1]
     tags: ['*']
   workflow_dispatch:
 
