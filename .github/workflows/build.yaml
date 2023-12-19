@@ -12,7 +12,7 @@ env:
   BASE_IMG_REPO: project8/luna_base
   BASE_IMG_TAG: v1.3.4
   KASS_REPO: project8/kassiopeia
-  KASS_TAG: v4.0.0
+  KASS_TAG: v4.0.1
   NARG: 2
 
 jobs:
